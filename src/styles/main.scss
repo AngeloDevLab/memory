@@ -1,0 +1,27 @@
+@use './base/reset';
+@use './base/fonts';
+@use './base/colors';
+@use './base/mixins';
+@use './layout/landing';
+@use './components/button';
+
+body {
+    background-color: colors.$primary;
+    height: 100vh; //fallback
+    height: 100dvh;
+    color: #ffffff;
+    position: relative;
+}
+
+svg {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+main {
+    @include mixins.flex-center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100dvh;
+}

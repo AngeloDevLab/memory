@@ -1,0 +1,39 @@
+@use '../base/colors';
+@use '../base/mixins';
+
+.landing {
+    @include mixins.flex-center;
+    flex-direction: column;
+    gap: 85px;
+
+    &__title {
+        @include mixins.flex-center;
+        flex-direction: column;
+    }
+
+    &__eyebrow {
+        align-self: flex-start;
+        font-family: 'Almarai';
+        font-size: clamp(1.5rem, 1rem + 2.3vw, 3rem);
+    }
+
+    &__heading {
+        font-family: 'Red Rose';
+        font-weight: bold;
+        font-size: clamp(2.5rem, 0.3rem + 9.4vw, 8.75rem);
+    }
+
+    &__decoration {
+        position: absolute;
+        top: 500px;
+        left: -88px;
+        height: 300px;
+        width: 414px;
+        opacity: 0.05;
+        transform: rotate(37.5deg);
+
+        path {
+            fill: colors.$secondary;
+        }
+    }
+}
