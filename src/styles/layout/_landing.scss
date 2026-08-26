@@ -5,6 +5,9 @@
     @include mixins.flex-center;
     flex-direction: column;
     gap: 85px;
+    width: 100%;
+    min-height: 100dvh;
+    background-color: colors.$primary;
 
     &__title {
         @include mixins.flex-center;

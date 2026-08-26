@@ -6,7 +6,6 @@
 @use './components/button';
 
 body {
-    background-color: colors.$primary;
     height: 100vh; //fallback
     height: 100dvh;
     color: #ffffff;
