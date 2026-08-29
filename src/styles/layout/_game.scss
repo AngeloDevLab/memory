@@ -1,0 +1,176 @@
+@use '../base/colors';
+@use '../base/mixins';
+
+$card-gradient-start: #286F62;
+$card-gradient-end: #4DD5BC;
+$border: #4DD5BC;
+
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+    min-height: 100dvh;
+    background-color: colors.$primary;
+    color: colors.$white;
+    padding: 1.5rem;
+
+    &__topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    &__scores {
+        @include mixins.flex-center;
+        gap: 1.25rem;
+        background-color: rgba(#86E9D6, 0.2);
+        padding: 1rem 1.25rem;
+    }
+
+    &__score {
+        @include mixins.flex-center;
+        font-family: 'Red Rose';
+        font-weight: bold;
+        font-size: clamp(1.25rem, 0.5rem + 3vw, 1.5rem);
+        gap: 0.5rem;
+
+        &--blue {
+            color: colors.$player-blue;
+        }
+
+        &--orange {
+            color: colors.$player-orange;
+        }
+    }
+
+    &__score-value {
+        font-family: 'Red Rose';
+        font-weight: bold;
+        font-size: clamp(1.25rem, 0.5rem + 5vw, 1.5rem);
+    }
+
+    &__score-icon {
+        height: 20px;
+        width: 24px;
+    }
+
+    &__current-player-icon {
+        height: 20px;
+        width: 24px;
+
+        &--blue {
+            color: colors.$player-blue;
+        }
+
+        &--orange {
+            color: colors.$player-orange;
+        }
+    }
+
+    &__current-player {
+        @include mixins.flex-center;
+        font-family: 'Red Rose';
+        font-size: clamp(1.25rem, 0.5rem + 3vw, 26px);
+        gap: 0.5rem;
+    }
+
+    &__exit {
+        @include mixins.flex-center;
+        gap: 0.5rem;
+        border: 1px solid $border;
+        padding: 1rem 1.5rem;
+        background-color: rgba(#86E9D6, 0.2);
+        color: colors.$white;
+        font-family: 'Red Rose';
+        font-weight: bold;
+        font-size: clamp(1.25rem, 0.5rem + 5vw, 1.5rem);
+        cursor: pointer;
+        transition: transform 200ms ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    &__exit-icon {
+        height: 1.5rem;
+        width: auto;
+    }
+
+    &__board {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    &__card {
+        position: relative;
+        aspect-ratio: 1;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        perspective: 1000px;
+    }
+
+    &__card-highlight {
+        position: absolute;
+        inset: 0;
+        box-sizing: border-box;
+        border: 5px solid transparent;
+        transition: border-color 0s 0.5s;
+        pointer-events: none;
+
+        .game__card--matched & {
+            border-color: $border;
+        }
+    }
+
+    &__card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s;
+        transform-style: preserve-3d;
+
+        .game__card--revealed & {
+            transform: rotateY(180deg);
+        }
+    }
+
+    &__card-face {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backface-visibility: hidden;
+
+        &--back {
+            background: linear-gradient(45deg, $card-gradient-start, $card-gradient-end);
+        }
+
+        &--front {
+            background-color: #E8F3F0;
+            transform: rotateY(180deg);
+        }
+    }
+
+    &__card-icon {
+        width: clamp(30px, 0.5rem + 5vw, 60px);
+        height: clamp(24px, 0.5rem + 5vw, 48px);
+
+        .game__card-face--front & {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+    }
+}
