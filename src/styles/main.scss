@@ -5,11 +5,14 @@
 @use './layout/landing';
 @use './layout/settings';
 @use './layout/game';
+@use './layout/gameover';
+@use './layout/result';
 @use './components/button';
 
 body {
     height: 100vh; //fallback
     height: 100dvh;
+    background-color: colors.$primary;
     color: #ffffff;
     position: relative;
 }
@@ -25,4 +28,9 @@ main {
     overflow: hidden;
     width: 100%;
     min-height: 100dvh;
+    background-color: colors.$primary;
+
+    &.is-light {
+        background-color: colors.$white;
+    }
 }

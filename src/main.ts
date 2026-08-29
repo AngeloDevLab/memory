@@ -1,6 +1,6 @@
 import './styles/main.scss';
 
-type Screen = 'landing' | 'settings' | 'game' | 'gameover';
+type Screen = 'landing' | 'settings' | 'game' | 'gameover' | 'result';
 type BoardSize = 16 | 24 | 36;
 type Player = 'blue' | 'orange';
 
@@ -21,11 +21,23 @@ interface GameState {
     locked: boolean;
 }
 
+interface SelectedSettings {
+    theme: string;
+    boardSize: BoardSize;
+    startingPlayer: Player;
+}
+
 const app = document.querySelector('main');
 
 const settingsGroups = ['theme', 'player', 'board-size'];
 
 let gameState: GameState | null = null;
+
+let selectedSettings: SelectedSettings = {
+    theme: 'it',
+    boardSize: 16,
+    startingPlayer: 'blue',
+};
 
 function showScreen(screen: Screen): void {
     if (!app) return;
@@ -33,13 +45,34 @@ function showScreen(screen: Screen): void {
     const template = document.getElementById(`screen-${screen}`);
     if (!(template instanceof HTMLTemplateElement)) return;
 
+    app.classList.toggle('is-light', screen === 'settings');
     app.replaceChildren(template.content.cloneNode(true));
     updateSettingsProgress();
 
     if (screen === 'game') {
-        // TODO: read theme/board-size from the settings selection once that wiring exists
-        startGame('it', 16);
+        startGame(selectedSettings.theme, selectedSettings.boardSize);
     }
+
+    if (screen === 'gameover') {
+        showGameOver();
+    }
+
+    if (screen === 'result') {
+        revealResult(gameState?.scores ?? { blue: 0, orange: 0 });
+    }
+}
+
+function captureSelectedSettings(): void {
+    const themeRadio = app?.querySelector<HTMLInputElement>('input[name="theme"]:checked');
+    const playerRadio = app?.querySelector<HTMLInputElement>('input[name="player"]:checked');
+    const boardSizeRadio = app?.querySelector<HTMLInputElement>('input[name="board-size"]:checked');
+    if (!themeRadio?.dataset.themeFolder || !playerRadio || !boardSizeRadio) return;
+
+    selectedSettings = {
+        theme: themeRadio.dataset.themeFolder,
+        boardSize: Number(boardSizeRadio.value) as BoardSize,
+        startingPlayer: playerRadio.value as Player,
+    };
 }
 
 function createCardDeck(theme: string, boardSize: BoardSize): CardState[] {
@@ -67,7 +100,7 @@ function startGame(theme: string, boardSize: BoardSize): void {
         theme,
         boardSize,
         cards: createCardDeck(theme, boardSize),
-        currentPlayer: 'blue',
+        currentPlayer: selectedSettings.startingPlayer,
         scores: { blue: 0, orange: 0 },
         flippedIndices: [],
         locked: false,
@@ -83,8 +116,17 @@ function renderBoard(): void {
     const board = app?.querySelector<HTMLElement>('.game__board');
     if (!state || !board) return;
 
-    const columns = state.boardSize === 16 ? 4 : 6;
-    board.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    if (state.boardSize === 16) {
+        board.style.gridTemplateColumns = 'repeat(4, 1fr)';
+        board.style.gap = '';
+        board.style.width = '';
+        board.style.maxWidth = '';
+    } else {
+        board.style.gridTemplateColumns = 'repeat(6, minmax(0, 120px))';
+        board.style.gap = '6px';
+        board.style.width = '100%';
+        board.style.maxWidth = '750px';
+    }
 
     board.replaceChildren(
         ...state.cards.map((card, index) => {
@@ -177,6 +219,11 @@ function handleCardClick(index: number): void {
         updateCardElement(firstIndex);
         updateCardElement(secondIndex);
         renderScores();
+
+        if (gameState.cards.every((c) => c.matched)) {
+            window.setTimeout(() => showScreen('gameover'), 800);
+        }
+
         return;
     }
 
@@ -192,6 +239,45 @@ function handleCardClick(index: number): void {
         updateCardElement(secondIndex);
         renderCurrentPlayer();
     }, 900);
+}
+
+function showGameOver(): void {
+    const scores = gameState?.scores ?? { blue: 0, orange: 0 };
+
+    const blueValue = app?.querySelector('[data-score="blue"]');
+    const orangeValue = app?.querySelector('[data-score="orange"]');
+    if (blueValue) blueValue.textContent = String(scores.blue);
+    if (orangeValue) orangeValue.textContent = String(scores.orange);
+
+    window.setTimeout(() => showScreen('result'), 5000);
+}
+
+function revealResult(scores: Record<Player, number>): void {
+    const label = app?.querySelector('.result__label');
+    const title = app?.querySelector<HTMLElement>('.result__title');
+    const confetti = app?.querySelector<HTMLElement>('.result__confetti');
+    const playerIcon = app?.querySelector<HTMLElement>('.result__player-icon');
+    const drawIcon = app?.querySelector<HTMLElement>('.result__draw-icon');
+    if (!label || !title || !confetti || !playerIcon || !drawIcon) return;
+
+    const isDraw = scores.blue === scores.orange;
+
+    if (isDraw) {
+        label.textContent = "It's a";
+        title.textContent = 'Draw';
+        title.className = 'result__title result__title--draw';
+    } else {
+        const winner: Player = scores.blue > scores.orange ? 'blue' : 'orange';
+        label.textContent = 'The winner is';
+        title.textContent = `${winner === 'blue' ? 'Blue' : 'Orange'} player`;
+        title.className = `result__title result__title--${winner}`;
+        playerIcon.classList.remove('result__player-icon--blue', 'result__player-icon--orange');
+        playerIcon.classList.add(`result__player-icon--${winner}`);
+    }
+
+    confetti.toggleAttribute('hidden', isDraw);
+    playerIcon.toggleAttribute('hidden', isDraw);
+    drawIcon.toggleAttribute('hidden', !isDraw);
 }
 
 function updateSettingsProgress(): void {
@@ -233,6 +319,20 @@ app?.addEventListener('click', (event) => {
     const cardButton = target.closest<HTMLButtonElement>('.game__card');
     if (cardButton?.dataset.index) {
         handleCardClick(Number(cardButton.dataset.index));
+    }
+
+    const startButton = target.closest('.settings__start');
+    if (startButton instanceof HTMLButtonElement && !startButton.disabled) {
+        captureSelectedSettings();
+        showScreen('game');
+    }
+
+    if (target.closest('.game__exit')) {
+        showScreen('settings');
+    }
+
+    if (target.closest('.result__restart')) {
+        showScreen('settings');
     }
 });
 
