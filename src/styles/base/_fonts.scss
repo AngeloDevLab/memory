@@ -34,3 +34,21 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/fonts/orbitron/Orbitron-Black.woff2') format('woff2'),
+        url('/fonts/orbitron/Orbitron-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('/fonts/orbitron/Orbitron-Bold.woff2') format('woff2'),
+        url('/fonts/orbitron/Orbitron-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

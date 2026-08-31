@@ -1,0 +1,7 @@
+// DA Projects theme — surface/on-surface confirmed from project-info.txt.
+// Accent tokens aren't final yet, so they fall back to the "it" defaults in :root.
+
+[data-theme="da"] {
+    --color-surface: #ffffff;
+    --color-on-surface: #1E7594;
+}

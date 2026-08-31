@@ -1,0 +1,168 @@
+// Games theme.
+
+[data-theme="gaming"] {
+    --color-surface: #294F60;
+    --color-on-surface: #ffffff;
+    --color-accent: #ED1B76;
+    --color-accent-strong: #ED1B76;
+    --color-accent-soft: rgba(237, 27, 118, 0.08);
+    --color-accent-outline: #E71C4F;
+    --color-card-gradient-start: #0A2835;
+    --color-player-blue: #097FC5;
+    --color-player-orange: #EA6900;
+    --font-family: 'Orbitron';
+}
+
+// --- Game screen: scoreboard header ---
+// The header background spans the whole topbar (including the exit button),
+// not just the score badges — so it moves from .game__scores to .game__topbar.
+[data-theme="gaming"] .game__topbar {
+    background-color: rgba(253, 150, 201, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+[data-theme="gaming"] .game__scores,
+[data-theme="gaming"] .gameover__scores {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    gap: 40px;
+}
+
+[data-theme="gaming"] .game__score,
+[data-theme="gaming"] .gameover__score {
+    &--orange {
+        order: -1;
+    }
+}
+
+[data-theme="gaming"] .game__score-label,
+[data-theme="gaming"] .gameover__score-label {
+    display: none;
+}
+
+// Swap the default flag icon for the player-icon shape.
+[data-theme="gaming"] .game__score-icon:not(.game__score-icon--person),
+[data-theme="gaming"] .gameover__score-icon:not(.gameover__score-icon--person) {
+    display: none;
+}
+
+[data-theme="gaming"] .game__score-icon--person,
+[data-theme="gaming"] .gameover__score-icon--person {
+    display: block;
+    height: 28px;
+    width: 22px;
+}
+
+[data-theme="gaming"] .game__score-value,
+[data-theme="gaming"] .gameover__score-value {
+    font-size: 30px;
+}
+
+// --- Game screen: current player badge ---
+[data-theme="gaming"] .game__current-player {
+    font-size: 32px;
+}
+
+[data-theme="gaming"] .game__current-player-icon:not(.game__current-player-icon--person) {
+    display: none;
+}
+
+[data-theme="gaming"] .game__current-player-icon--person {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 3px;
+    color: #ffffff;
+
+    &.game__current-player-icon--blue {
+        background-color: var(--color-player-blue);
+    }
+
+    &.game__current-player-icon--orange {
+        background-color: var(--color-player-orange);
+    }
+}
+
+// --- Game screen: exit button ---
+[data-theme="gaming"] .game__exit {
+    border-width: 2px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+// --- Game screen: memory cards ---
+[data-theme="gaming"] .game__card {
+    border-radius: 12px;
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="gaming"] .game__card-face,
+[data-theme="gaming"] .game__card-highlight {
+    border-radius: 12px;
+}
+
+// --- Confirm-exit dialog ---
+[data-theme="gaming"] .confirm-dialog {
+    border-radius: 20px;
+
+    &__text {
+        font-size: 28px;
+    }
+}
+
+[data-theme="gaming"] .confirm-dialog .button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+// --- Game over screen ---
+[data-theme="gaming"] .gameover__title {
+    font-weight: 900;
+    font-size: 124px;
+    text-shadow: none;
+}
+
+[data-theme="gaming"] .gameover__final-label {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+// --- Result screen (winner / draw) ---
+[data-theme="gaming"] .result__label {
+    font-size: 28px;
+}
+
+// --blue/--orange get the full size/weight treatment; --draw keeps its own
+// font-size/color but shares the same shadow.
+[data-theme="gaming"] .result__title--blue,
+[data-theme="gaming"] .result__title--orange {
+    font-weight: bold;
+    font-size: 4rem;
+    text-transform: none;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="gaming"] .result__title--draw {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="gaming"] .result__player-icon {
+    display: none;
+}
+
+[data-theme="gaming"] .result__trophy:not([hidden]) {
+    display: block;
+}
+
+[data-theme="gaming"] .result__restart {
+    font-size: 20px;
+    border-radius: 10px;
+    border-color: var(--color-accent-outline);
+    color: var(--color-on-surface);
+}

@@ -31,6 +31,9 @@ const app = document.querySelector('main');
 
 const settingsGroups = ['theme', 'player', 'board-size'];
 
+// Themes without their own card-back.png just show the CSS gradient — no icon on top.
+const themesWithCardBack = new Set(['it']);
+
 let gameState: GameState | null = null;
 
 let selectedSettings: SelectedSettings = {
@@ -38,6 +41,26 @@ let selectedSettings: SelectedSettings = {
     boardSize: 16,
     startingPlayer: 'blue',
 };
+
+const themeCopy: Record<string, { dialogCancel: string; dialogConfirm: string; restart: string }> = {
+    gaming: {
+        dialogCancel: 'No, back to game',
+        dialogConfirm: 'Yes, quit game',
+        restart: 'Home',
+    },
+};
+
+function applyThemeCopy(theme: string): void {
+    const copy = themeCopy[theme];
+
+    const dialogCancel = app?.querySelector('[data-dialog-action="cancel"]');
+    const dialogConfirm = app?.querySelector('[data-dialog-action="confirm"]');
+    const restart = app?.querySelector('.result__restart');
+
+    if (dialogCancel) dialogCancel.textContent = copy?.dialogCancel ?? 'Back to game';
+    if (dialogConfirm) dialogConfirm.textContent = copy?.dialogConfirm ?? 'Exit game';
+    if (restart) restart.textContent = copy?.restart ?? 'Back to start';
+}
 
 function showScreen(screen: Screen): void {
     if (!app) return;
@@ -59,6 +82,7 @@ function showScreen(screen: Screen): void {
 
     if (screen === 'result') {
         revealResult(gameState?.scores ?? { blue: 0, orange: 0 });
+        applyThemeCopy(gameState?.theme ?? selectedSettings.theme);
     }
 }
 
@@ -96,6 +120,9 @@ function createCardDeck(theme: string, boardSize: BoardSize): CardState[] {
 }
 
 function startGame(theme: string, boardSize: BoardSize): void {
+    document.body.dataset.theme = theme;
+    applyThemeCopy(theme);
+
     gameState = {
         theme,
         boardSize,
@@ -140,11 +167,14 @@ function renderBoard(): void {
 
             const back = document.createElement('div');
             back.className = 'game__card-face game__card-face--back';
-            const backIcon = document.createElement('img');
-            backIcon.className = 'game__card-icon';
-            backIcon.alt = '';
-            backIcon.src = `/assets/themes/${state.theme}/card-back.png`;
-            back.append(backIcon);
+
+            if (themesWithCardBack.has(state.theme)) {
+                const backIcon = document.createElement('img');
+                backIcon.className = 'game__card-icon';
+                backIcon.alt = '';
+                backIcon.src = `/assets/themes/${state.theme}/card-back.png`;
+                back.append(backIcon);
+            }
 
             const front = document.createElement('div');
             front.className = 'game__card-face game__card-face--front';
@@ -186,11 +216,11 @@ function renderScores(): void {
 function renderCurrentPlayer(): void {
     if (!gameState) return;
 
-    const icon = app?.querySelector('.game__current-player-icon');
-    if (!icon) return;
-
-    icon.classList.remove('game__current-player-icon--blue', 'game__current-player-icon--orange');
-    icon.classList.add(`game__current-player-icon--${gameState.currentPlayer}`);
+    const icons = app?.querySelectorAll('.game__current-player-icon');
+    icons?.forEach((icon) => {
+        icon.classList.remove('game__current-player-icon--blue', 'game__current-player-icon--orange');
+        icon.classList.add(`game__current-player-icon--${gameState?.currentPlayer}`);
+    });
 }
 
 function handleCardClick(index: number): void {
@@ -258,7 +288,8 @@ function revealResult(scores: Record<Player, number>): void {
     const confetti = app?.querySelector<HTMLElement>('.result__confetti');
     const playerIcon = app?.querySelector<HTMLElement>('.result__player-icon');
     const drawIcon = app?.querySelector<HTMLElement>('.result__draw-icon');
-    if (!label || !title || !confetti || !playerIcon || !drawIcon) return;
+    const trophy = app?.querySelector<HTMLElement>('.result__trophy');
+    if (!label || !title || !confetti || !playerIcon || !drawIcon || !trophy) return;
 
     const isDraw = scores.blue === scores.orange;
 
@@ -269,7 +300,7 @@ function revealResult(scores: Record<Player, number>): void {
     } else {
         const winner: Player = scores.blue > scores.orange ? 'blue' : 'orange';
         label.textContent = 'The winner is';
-        title.textContent = `${winner === 'blue' ? 'Blue' : 'Orange'} player`;
+        title.textContent = `${winner === 'blue' ? 'Blue' : 'Orange'} Player`;
         title.className = `result__title result__title--${winner}`;
         playerIcon.classList.remove('result__player-icon--blue', 'result__player-icon--orange');
         playerIcon.classList.add(`result__player-icon--${winner}`);
@@ -277,6 +308,7 @@ function revealResult(scores: Record<Player, number>): void {
 
     confetti.toggleAttribute('hidden', isDraw);
     playerIcon.toggleAttribute('hidden', isDraw);
+    trophy.toggleAttribute('hidden', isDraw);
     drawIcon.toggleAttribute('hidden', !isDraw);
 }
 
@@ -312,7 +344,7 @@ app?.addEventListener('click', (event) => {
     const target = event.target;
     if (!(target instanceof Element)) return;
 
-    if (target.closest('.button')) {
+    if (target.closest('.button--hero')) {
         showScreen('settings');
     }
 
@@ -328,7 +360,26 @@ app?.addEventListener('click', (event) => {
     }
 
     if (target.closest('.game__exit')) {
-        showScreen('settings');
+        app?.querySelector<HTMLDialogElement>('.confirm-dialog')?.showModal();
+    }
+
+    const dialogAction = target.closest<HTMLButtonElement>('[data-dialog-action]');
+    if (dialogAction) {
+        dialogAction.closest('dialog')?.close();
+
+        if (dialogAction.dataset.dialogAction === 'confirm') {
+            showScreen('settings');
+        }
+    }
+
+    if (target instanceof HTMLDialogElement && target.open) {
+        const rect = target.getBoundingClientRect();
+        const clickedInside = event.clientX >= rect.left && event.clientX <= rect.right
+            && event.clientY >= rect.top && event.clientY <= rect.bottom;
+
+        if (!clickedInside) {
+            target.close();
+        }
     }
 
     if (target.closest('.result__restart')) {

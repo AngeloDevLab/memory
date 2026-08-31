@@ -4,12 +4,11 @@
 .button {
     @include mixins.flex-center;
     gap: 1rem;
-    padding: 1.5rem;
-    width: 250px;
-    height: 100px;
-    background-color: colors.$secondary;
     border: none;
+    border-radius: 0;
     cursor: pointer;
+    font-family: var(--font-family, 'Red Rose');
+    font-weight: bold;
     transition: transform 200ms ease-in-out;
 
     .button__icon,
@@ -30,9 +29,32 @@
     }
 
     &__label {
-        font-size: clamp(1.25rem, 0.8rem + 1.9vw, 2.5rem);
-        font-family: 'Red Rose';
-        font-weight: bold;
+        font-size: 2.5rem;
         color: colors.$primary;
+    }
+
+    // Landing's big square call-to-action (the "Play" button).
+    &--hero {
+        padding: 1.5rem;
+        width: 250px;
+        height: 100px;
+        background-color: colors.$secondary;
+    }
+
+    // Filled, theme-aware action — the default/affirmative choice.
+    &--primary {
+        padding: 1rem 1.5rem;
+        font-size: 1.25rem;
+        background-color: var(--color-accent-strong);
+        color: var(--color-on-surface);
+    }
+
+    // Outlined, theme-aware action — the secondary/less prominent choice.
+    &--secondary {
+        padding: 1rem 1.5rem;
+        font-size: 1.25rem;
+        border: 2px solid var(--color-accent-outline);
+        background-color: var(--color-accent-soft);
+        color: var(--color-accent-outline);
     }
 }

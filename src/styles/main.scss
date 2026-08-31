@@ -2,12 +2,17 @@
 @use './base/fonts';
 @use './base/colors';
 @use './base/mixins';
+@use './themes/it';
+@use './themes/gaming';
+@use './themes/da';
+@use './themes/food';
 @use './layout/landing';
 @use './layout/settings';
 @use './layout/game';
 @use './layout/gameover';
 @use './layout/result';
 @use './components/button';
+@use './components/confirm-dialog';
 
 body {
     height: 100vh; //fallback

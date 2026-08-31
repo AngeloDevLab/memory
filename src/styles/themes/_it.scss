@@ -1,0 +1,32 @@
+// Code vibes theme — also the fallback in :root for screens rendered
+// before a theme is selected (e.g. gameover/result opened directly via URL).
+
+:root {
+    --color-surface: #303131;
+    --color-on-surface: #ffffff;
+    --color-accent: #4DD5BC;
+    --color-accent-strong: #66CFBC;
+    --color-accent-soft: rgba(134, 233, 214, 0.2);
+    --color-accent-outline: #4DD5BC;
+    --color-card-gradient-start: #286F62;
+    --color-player-blue: #2BB1FF;
+    --color-player-orange: #F58E39;
+    --font-family: 'Red Rose';
+}
+
+[data-theme="it"] {
+    --color-surface: #303131;
+    --color-on-surface: #ffffff;
+    --color-accent: #4DD5BC;
+    --color-accent-strong: #66CFBC;
+    --color-accent-soft: rgba(134, 233, 214, 0.2);
+    --color-accent-outline: #4DD5BC;
+    --color-card-gradient-start: #286F62;
+    --color-player-blue: #2BB1FF;
+    --color-player-orange: #F58E39;
+    --font-family: 'Red Rose';
+}
+
+[data-theme="it"] .result__confetti:not([hidden]) {
+    display: block;
+}

@@ -1,0 +1,38 @@
+@use '../base/mixins';
+
+.confirm-dialog {
+    display: none;
+    gap: 54px;
+    padding: 40px;
+    position: fixed;
+    inset: 0;
+    width: fit-content;
+    max-width: 540px;
+    height: fit-content;
+    margin: auto;
+    border: none;
+    background-color: var(--color-on-surface);
+    color: var(--color-surface);
+
+    &[open] {
+        @include mixins.flex-center;
+        flex-direction: column;
+    }
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &__text {
+        font-family: var(--font-family, 'Red Rose');
+        font-weight: bold;
+        font-size: clamp(1.25rem, 0.8rem + 1.5vw, 1.75rem);
+        text-align: center;
+        margin: 0;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 24px;
+    }
+}

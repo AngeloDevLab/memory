@@ -1,0 +1,7 @@
+// Food theme — surface/on-surface confirmed from project-info.txt.
+// Accent tokens aren't final yet, so they fall back to the "it" defaults in :root.
+
+[data-theme="food"] {
+    --color-surface: #ffffff;
+    --color-on-surface: #F3832D;
+}

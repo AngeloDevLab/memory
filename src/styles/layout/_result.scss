@@ -1,7 +1,4 @@
-@use '../base/colors';
 @use '../base/mixins';
-
-$border: #4DD5BC;
 
 .result {
     @include mixins.flex-center;
@@ -9,15 +6,17 @@ $border: #4DD5BC;
     gap: 4rem;
     width: 100%;
     min-height: 100dvh;
-    background-color: colors.$primary;
-    color: colors.$white;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
     padding: 1.5rem;
     text-align: center;
     position: relative;
     overflow: hidden;
     animation: result-slide-in 0.6s ease-out;
 
+    // Decorative confetti is an "it"-theme-only touch — other themes opt in explicitly.
     &__confetti {
+        display: none;
         position: absolute;
         top: 0;
         left: 0;
@@ -38,38 +37,39 @@ $border: #4DD5BC;
     }
 
     &__label {
-        font-family: 'Red Rose';
+        font-family: var(--font-family, 'Red Rose');
         font-size: 2.5rem;
         margin: 0;
     }
 
     &__title {
-        font-family: 'Red Rose';
+        font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
         text-transform: uppercase;
         font-size: clamp(3rem, 1rem + 4vw, 4.75rem);
         margin: 0;
 
         &--blue {
-            color: colors.$player-blue;
+            color: var(--color-player-blue);
         }
 
         &--orange {
-            color: colors.$player-orange;
+            color: var(--color-player-orange);
         }
 
         &--draw {
-            font-family: 'Red Rose';
+            font-family: var(--font-family, 'Red Rose');
             font-weight: bold;
             font-size: clamp(3rem, 1rem + 8vw, 8rem);
-            color: $border;
-            text-shadow: -1px -1px 0 colors.$white;
+            color: var(--color-accent);
+            text-shadow: -1px -1px 0 var(--color-on-surface);
             margin: 0;
         }
     }
 
     &__player-icon,
-    &__draw-icon {
+    &__draw-icon,
+    &__trophy {
         &[hidden] {
             display: none;
         }
@@ -81,28 +81,37 @@ $border: #4DD5BC;
         max-width: 40vw;
 
         &--blue {
-            color: colors.$player-blue;
+            color: var(--color-player-blue);
         }
 
         &--orange {
-            color: colors.$player-orange;
+            color: var(--color-player-orange);
         }
     }
 
     &__draw-icon {
         height: 272px;
         width: auto;
+        color: var(--color-accent);
+    }
+
+    // Themes without a trophy graphic keep the plain player-icon above; hidden by default.
+    &__trophy {
+        display: none;
+        width: 200px;
+        height: auto;
+        max-width: 40vw;
     }
 
     &__restart {
         @include mixins.flex-center;
-        border: 1px solid $border;
-        background-color: rgba(#86E9D6, 0.2);
-        color: colors.$white;
-        font-family: 'Red Rose';
+        border: 1px solid var(--color-accent);
+        background-color: var(--color-accent-soft);
+        color: var(--color-on-surface);
+        font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
         font-size: 1.5rem;
-        padding: 0.75rem 1.5rem;
+        padding: 0.75rem 1.25rem;
         cursor: pointer;
         transition: transform 200ms ease-in-out;
 
