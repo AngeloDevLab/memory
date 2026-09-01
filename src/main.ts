@@ -32,7 +32,7 @@ const app = document.querySelector('main');
 const settingsGroups = ['theme', 'player', 'board-size'];
 
 // Themes without their own card-back.png just show the CSS gradient — no icon on top.
-const themesWithCardBack = new Set(['it']);
+const themesWithCardBack = new Set(['it', 'da']);
 
 let gameState: GameState | null = null;
 
@@ -46,6 +46,11 @@ const themeCopy: Record<string, { dialogCancel: string; dialogConfirm: string; r
     gaming: {
         dialogCancel: 'No, back to game',
         dialogConfirm: 'Yes, quit game',
+        restart: 'Home',
+    },
+    da: {
+        dialogCancel: 'Back to game',
+        dialogConfirm: 'Exit game',
         restart: 'Home',
     },
 };
