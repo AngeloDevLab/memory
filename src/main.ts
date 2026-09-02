@@ -151,7 +151,12 @@ function startGame(theme: string, boardSize: BoardSize): void {
 function renderBoard(): void {
     const state = gameState;
     const board = app?.querySelector<HTMLElement>('.game__board');
+    const game = app?.querySelector<HTMLElement>('.game');
     if (!state || !board) return;
+
+    if (game) {
+        game.style.gap = state.boardSize === 36 ? '20px' : '54px';
+    }
 
     if (state.boardSize === 16) {
         board.style.gridTemplateColumns = 'repeat(4, 1fr)';
@@ -325,6 +330,7 @@ function revealResult(scores: Record<Player, number>): void {
 function updateSettingsProgress(): void {
     updateStartButton();
     updateSteps();
+    updateDividers();
 }
 
 function updateStartButton(): void {
@@ -346,6 +352,19 @@ function updateSteps(): void {
         const label = checked?.closest('.settings__option')?.querySelector('span')?.textContent;
         if (label) {
             step.textContent = label;
+        }
+    });
+}
+
+function updateDividers(): void {
+    const dividers = app?.querySelectorAll<HTMLLIElement>('.settings__divider');
+    if (!dividers) return;
+
+    dividers.forEach((divider) => {
+        const img = divider.querySelector<HTMLImageElement>('img');
+        const checked = app?.querySelector(`input[name="${divider.dataset.divider}"]:checked`);
+        if (img) {
+            img.src = checked ? '/assets/divider-with.svg' : '/assets/divider.svg';
         }
     });
 }

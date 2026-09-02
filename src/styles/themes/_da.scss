@@ -61,6 +61,7 @@
     font-weight: bold;
     font-size: 32px;
     color: #1E7594;
+    gap: 20px;
 }
 
 [data-theme="da"] .game__current-player-icon:not(.game__current-player-icon--person) {
@@ -93,6 +94,12 @@
     color: #1E7594;
     border-radius: 10px;
     border: none;
+}
+
+[data-theme="da"] .game__exit:hover {
+    background-color: #1E7594;
+    color: #ffffff;
+    box-shadow: 3px 3px 5px rgba(47, 46, 46, 0.2);
 }
 
 [data-theme="da"] .game__card {
@@ -175,6 +182,20 @@
 [data-theme="da"] .confirm-dialog .button--secondary {
     color: #ffffff;
     background-color: #FD8A81;
+}
+
+[data-theme="da"] .confirm-dialog .button--primary:hover {
+    transform: none;
+    background-color: #1E7594;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+[data-theme="da"] .confirm-dialog .button--secondary:hover {
+    transform: none;
+    background-color: #ED5B50;
+    color: #ffffff;
+    box-shadow: none;
 }
 
 [data-theme="da"] .result__title--draw {

@@ -112,19 +112,28 @@
     font-weight: 600;
     font-size: 32px;
     color: #A45212;
+    gap: 20px;
 }
 
 [data-theme="food"] .game__exit {
     background-color: #FFF9F2;
     border: none;
     background-image: url('/assets/themes/food/exit-btn-border.png');
-    background-size: 100% 100%;
+    background-size: calc(100% + 2px) calc(100% + 2px);
+    background-position: -1px -1px;
     background-repeat: no-repeat;
     color: #F3832D;
     font-family: 'Delius Unicase';
     font-weight: bold;
     font-size: 16px;
     border-radius: 10px;
+}
+
+[data-theme="food"] .game__exit:hover {
+    background-image: none;
+    background-color: #F3832D;
+    color: #ffffff;
+    box-shadow: 3px 3px 5px rgba(47, 46, 46, 0.2);
 }
 
 [data-theme="food"] .game__card--matched .game__card-highlight {
@@ -187,6 +196,18 @@
 [data-theme="food"] .confirm-dialog .button--secondary {
     color: #F3832D;
     background-color: #FFF9F2;
+}
+
+[data-theme="food"] .confirm-dialog .button--primary:hover,
+[data-theme="food"] .confirm-dialog .button--secondary:hover {
+    transform: none;
+    background-image: none;
+    background-color: #F3832D;
+    box-shadow: 3px 3px 5px rgba(47, 46, 46, 0.2);
+}
+
+[data-theme="food"] .confirm-dialog .button--secondary:hover {
+    color: #ffffff;
 }
 
 [data-theme="food"] .game__card-face--back {

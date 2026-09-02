@@ -17,7 +17,7 @@
 // The header background spans the whole topbar (including the exit button),
 // not just the score badges — so it moves from .game__scores to .game__topbar.
 [data-theme="gaming"] .game__topbar {
-    background-color: rgba(253, 150, 201, 0.2);
+    background-color: rgba(#FD96C9, 0.2);
     border-radius: 10px;
     padding: 1.5rem;
 }
@@ -32,6 +32,8 @@
 
 [data-theme="gaming"] .game__score,
 [data-theme="gaming"] .gameover__score {
+    gap: 0.5rem;
+
     &--orange {
         order: -1;
     }
@@ -63,6 +65,7 @@
 // --- Game screen: current player badge ---
 [data-theme="gaming"] .game__current-player {
     font-size: 32px;
+    gap: 20px;
 }
 
 [data-theme="gaming"] .game__current-player-icon:not(.game__current-player-icon--person) {
@@ -90,9 +93,21 @@
 
 // --- Game screen: exit button ---
 [data-theme="gaming"] .game__exit {
+    padding: 0.9rem 1.25rem;
     border-width: 2px;
     border-radius: 10px;
     font-size: 20px;
+}
+
+[data-theme="gaming"] .game__exit:hover {
+    background-color: rgba(237, 27, 118, 0.14);
+    box-shadow:
+        inset 0 0 0 1px #E71C4F,
+        3px 3px 5px rgba(47, 46, 46, 0.2);
+}
+
+[data-theme="gaming"] .game__exit:hover .game__exit-icon {
+    color: #E71C4F;
 }
 
 // --- Game screen: memory cards ---
@@ -112,6 +127,7 @@
 
 // --- Confirm-exit dialog ---
 [data-theme="gaming"] .confirm-dialog {
+    background-color: #F0F6F9;
     border-radius: 20px;
 
     &__text {
@@ -123,6 +139,22 @@
     padding: 12px 20px;
     border-radius: 10px;
     font-size: 16px;
+}
+
+[data-theme="gaming"] .confirm-dialog .button--secondary:hover {
+    transform: none;
+    box-shadow:
+        inset 0 0 0 1px var(--color-accent-outline),
+        3px 3px 5px rgba(47, 46, 46, 0.2);
+}
+
+[data-theme="gaming"] .confirm-dialog .button--primary:hover {
+    transform: none;
+    color: #ED1B76;
+    background-color: rgba(242, 199, 218, 0.08);
+    box-shadow:
+        inset 0 0 0 2px #E71C4F,
+        3px 3px 5px rgba(47, 46, 46, 0.2);
 }
 
 // --- Game over screen ---
