@@ -1,3 +1,5 @@
+@use '../abstract' as abstract;
+
 // DA Projects theme — surface/on-surface confirmed from project-info.txt.
 // Accent tokens aren't final yet, so they fall back to the "it" defaults in :root.
 
@@ -7,6 +9,11 @@
     --font-family: 'Figtree';
     --color-player-blue: #097FC5;
     --color-player-orange: #EA6900;
+
+    @include abstract.theme-topbar(#F0F3F4);
+    @include abstract.theme-score-panel;
+    @include abstract.score-badge-person-icon;
+    @include abstract.current-player-person-icon;
 }
 
 [data-theme="da"] .gameover,
@@ -14,77 +21,11 @@
     background-color: #1E7594;
 }
 
-[data-theme="da"] .game__topbar {
-    background-color: #F0F3F4;
-    border-radius: 10px;
-    padding: 1.5rem;
-}
-
-[data-theme="da"] .game__scores,
-[data-theme="da"] .gameover__scores {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 0.5rem 0.75rem;
-    gap: 40px;
-}
-
-[data-theme="da"] .game__score,
-[data-theme="da"] .gameover__score {
-    &--orange {
-        order: -1;
-    }
-}
-
-[data-theme="da"] .game__score-label,
-[data-theme="da"] .gameover__score-label {
-    display: none;
-}
-
-[data-theme="da"] .game__score-icon:not(.game__score-icon--person),
-[data-theme="da"] .gameover__score-icon:not(.gameover__score-icon--person) {
-    display: none;
-}
-
-[data-theme="da"] .game__score-icon--person,
-[data-theme="da"] .gameover__score-icon--person {
-    display: block;
-    height: 28px;
-    width: 22px;
-}
-
-[data-theme="da"] .game__score-value,
-[data-theme="da"] .gameover__score-value {
-    font-size: 30px;
-}
-
 [data-theme="da"] .game__current-player {
     font-weight: bold;
     font-size: 32px;
     color: #1E7594;
     gap: 20px;
-}
-
-[data-theme="da"] .game__current-player-icon:not(.game__current-player-icon--person) {
-    display: none;
-}
-
-[data-theme="da"] .game__current-player-icon--person {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    border-radius: 8px;
-    color: #ffffff;
-
-    &.game__current-player-icon--blue {
-        background-color: var(--color-player-blue);
-    }
-
-    &.game__current-player-icon--orange {
-        background-color: var(--color-player-orange);
-    }
 }
 
 [data-theme="da"] .game__exit {

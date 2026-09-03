@@ -1,29 +1,28 @@
-@use '../base/colors';
-@use '../base/mixins';
+@use '../abstract' as abstract;
 
 .landing {
-    @include mixins.flex-center;
+    @include abstract.flex-center;
     flex-direction: column;
     gap: 85px;
     width: 100%;
     min-height: 100dvh;
-    background-color: colors.$primary;
+    background-color: abstract.$primary;
 
     &__title {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         flex-direction: column;
     }
 
     &__eyebrow {
         align-self: flex-start;
         font-family: 'Almarai';
-        font-size: clamp(1.5rem, 1rem + 2.3vw, 3rem);
+        font-size: abstract.fluid-size(1.5rem, 1rem, 2.3vw, 3rem);
     }
 
     &__heading {
         font-family: 'Red Rose';
         font-weight: bold;
-        font-size: clamp(2.5rem, 0.3rem + 9.4vw, 8.75rem);
+        font-size: abstract.fluid-size(2.5rem, 0.3rem, 9.4vw, 8.75rem);
     }
 
     &__decoration {
@@ -36,7 +35,7 @@
         transform: rotate(37.5deg);
 
         path {
-            fill: colors.$secondary;
+            fill: abstract.$secondary;
         }
     }
 }

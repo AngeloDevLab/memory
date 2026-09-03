@@ -1,23 +1,13 @@
-@use './base/reset';
-@use './base/fonts';
-@use './base/colors';
-@use './base/mixins';
-@use './themes/it';
-@use './themes/gaming';
-@use './themes/da';
-@use './themes/food';
-@use './layout/landing';
-@use './layout/settings';
-@use './layout/game';
-@use './layout/gameover';
-@use './layout/result';
-@use './components/button';
-@use './components/confirm-dialog';
+@use './abstract' as abstract;
+@use './base';
+@use './themes';
+@use './pages';
+@use './components';
 
 body {
     height: 100vh; //fallback
     height: 100dvh;
-    background-color: colors.$primary;
+    background-color: abstract.$primary;
     color: #ffffff;
     position: relative;
 }
@@ -28,14 +18,14 @@ svg {
 }
 
 main {
-    @include mixins.flex-center;
+    @include abstract.flex-center;
     position: relative;
     overflow: hidden;
     width: 100%;
     min-height: 100dvh;
-    background-color: colors.$primary;
+    background-color: abstract.$primary;
 
     &.is-light {
-        background-color: colors.$white;
+        background-color: abstract.$white;
     }
 }

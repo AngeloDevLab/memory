@@ -1,0 +1,93 @@
+@use 'sass:map';
+@use 'variables';
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/// Wraps @content in a min-width media query for a named breakpoint from $breakpoints.
+@mixin mq($breakpoint) {
+    @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+/// Shared "themed" score badge look (da/food/gaming): hides the flag icon +
+/// label, shows the person icon instead, and puts the orange badge first.
+@mixin score-badge-person-icon($icon-width: 22px, $icon-height: 28px, $value-font-size: 30px) {
+    .game__score-label,
+    .gameover__score-label {
+        display: none;
+    }
+
+    .game__score-icon:not(.game__score-icon--person),
+    .gameover__score-icon:not(.gameover__score-icon--person) {
+        display: none;
+    }
+
+    .game__score-icon--person,
+    .gameover__score-icon--person {
+        display: block;
+        width: $icon-width;
+        height: $icon-height;
+    }
+
+    .game__score-value,
+    .gameover__score-value {
+        font-size: $value-font-size;
+    }
+
+    .game__score--orange,
+    .gameover__score--orange {
+        order: -1;
+    }
+}
+
+/// Shared "themed" current-player badge (da/food/gaming): shows a colored
+/// person-icon chip instead of the flag icon. $radius differs per theme.
+@mixin current-player-person-icon($radius: 8px) {
+    .game__current-player-icon:not(.game__current-player-icon--person) {
+        display: none;
+    }
+
+    .game__current-player-icon--person {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border-radius: $radius;
+        color: #ffffff;
+
+        &.game__current-player-icon--blue {
+            background-color: var(--color-player-blue);
+        }
+
+        &.game__current-player-icon--orange {
+            background-color: var(--color-player-orange);
+        }
+    }
+}
+
+/// Shared themed topbar panel; only the background color varies per theme.
+@mixin theme-topbar($bg) {
+    .game__topbar {
+        background-color: $bg;
+        border-radius: 10px;
+        padding: 1.5rem;
+    }
+}
+
+/// Shared themed score-panel chrome behind the score badges.
+@mixin theme-score-panel($bg: #ffffff) {
+    .game__scores,
+    .gameover__scores {
+        background-color: $bg;
+        border-radius: 10px;
+        padding: 0.5rem 0.75rem;
+        gap: 40px;
+    }
+}

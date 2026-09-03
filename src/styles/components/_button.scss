@@ -1,8 +1,7 @@
-@use '../base/colors';
-@use '../base/mixins';
+@use '../abstract' as abstract;
 
 .button {
-    @include mixins.flex-center;
+    @include abstract.flex-center;
     gap: 1rem;
     border: none;
     border-radius: 0;
@@ -30,7 +29,7 @@
 
     &__label {
         font-size: 2.5rem;
-        color: colors.$primary;
+        color: abstract.$primary;
     }
 
     // Landing's big square call-to-action (the "Play" button).
@@ -39,7 +38,7 @@
         padding: 1.5rem;
         width: 250px;
         height: 100px;
-        background-color: colors.$secondary;
+        background-color: abstract.$secondary;
     }
 
     // Filled, theme-aware action — the default/affirmative choice.

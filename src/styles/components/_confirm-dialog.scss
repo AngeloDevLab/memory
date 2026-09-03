@@ -1,4 +1,4 @@
-@use '../base/mixins';
+@use '../abstract' as abstract;
 
 .confirm-dialog {
     display: none;
@@ -15,7 +15,7 @@
     color: var(--color-surface);
 
     &[open] {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         flex-direction: column;
     }
 

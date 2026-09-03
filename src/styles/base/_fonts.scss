@@ -1,116 +1,20 @@
-@font-face {
-    font-family: 'Red Rose';
-    src: url('/fonts/red-rose/RedRose-Regular.woff2') format('woff2'),
-        url('/fonts/red-rose/RedRose-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+@use 'sass:map';
+@use '../abstract' as abstract;
+
+/// Emits a single @font-face block for one weight/style of a font family.
+@mixin font-face($family, $weight, $file, $style: normal) {
+    @font-face {
+        font-family: $family;
+        src: url('/fonts/#{$file}.woff2') format('woff2'),
+            url('/fonts/#{$file}.woff') format('woff');
+        font-weight: $weight;
+        font-style: $style;
+        font-display: swap;
+    }
 }
 
-@font-face {
-    font-family: 'Red Rose';
-    src: url('/fonts/red-rose/RedRose-Bold.woff2') format('woff2'),
-        url('/fonts/red-rose/RedRose-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Almarai';
-    src: url('/fonts/almarai/Almarai-Bold.woff2') format('woff2'),
-        url('/fonts/almarai/Almarai-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Almarai';
-    src: url('/fonts/almarai/Almarai-Regular.woff2') format('woff2'),
-        url('/fonts/almarai/Almarai-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Orbitron';
-    src: url('/fonts/orbitron/Orbitron-Black.woff2') format('woff2'),
-        url('/fonts/orbitron/Orbitron-Black.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Orbitron';
-    src: url('/fonts/orbitron/Orbitron-Bold.woff2') format('woff2'),
-        url('/fonts/orbitron/Orbitron-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Figtree';
-    src: url('/fonts/figtree/Figtree-Regular.woff2') format('woff2'),
-        url('/fonts/figtree/Figtree-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Figtree';
-    src: url('/fonts/figtree/Figtree-Medium.woff2') format('woff2'),
-        url('/fonts/figtree/Figtree-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Figtree';
-    src: url('/fonts/figtree/Figtree-Bold.woff2') format('woff2'),
-        url('/fonts/figtree/Figtree-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Figtree';
-    src: url('/fonts/figtree/Figtree-ExtraBold.woff2') format('woff2'),
-        url('/fonts/figtree/Figtree-ExtraBold.woff') format('woff');
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Klee One';
-    src: url('/fonts/klee-one/KleeOne-Regular.woff2') format('woff2'),
-        url('/fonts/klee-one/KleeOne-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Klee One';
-    src: url('/fonts/klee-one/KleeOne-SemiBold.woff2') format('woff2'),
-        url('/fonts/klee-one/KleeOne-SemiBold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Delius Unicase';
-    src: url('/fonts/delius-unicase/DeliusUnicase-Bold.woff2') format('woff2'),
-        url('/fonts/delius-unicase/DeliusUnicase-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+@each $family, $faces in abstract.$font-faces {
+    @each $face in $faces {
+        @include font-face($family, map.get($face, weight), map.get($face, file));
+    }
 }

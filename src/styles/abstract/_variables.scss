@@ -1,0 +1,11 @@
+$primary: #303131;
+$secondary: #F0EA6E;
+$white: #ffffff;
+$player-blue: #2BB1FF;
+$player-orange: #F58E39;
+
+// Named breakpoints for the mq() mixin. Only "tablet" exists today (the
+// settings screen's two-column layout at >= 900px).
+$breakpoints: (
+    tablet: 900px,
+);

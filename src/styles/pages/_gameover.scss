@@ -1,7 +1,7 @@
-@use '../base/mixins';
+@use '../abstract' as abstract;
 
 .gameover {
-    @include mixins.flex-center;
+    @include abstract.flex-center;
     flex-direction: column;
     gap: 8rem;
     width: 100%;
@@ -14,7 +14,7 @@
     &__title {
         font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
-        font-size: clamp(3rem, 1rem + 8vw, 8rem);
+        font-size: abstract.fluid-size(3rem, 1rem, 8vw, 8rem);
         color: var(--color-accent);
         text-shadow: -1px -1px 0 var(--color-on-surface);
         margin: 0;
@@ -34,14 +34,14 @@
     }
 
     &__scores {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         gap: 1.25rem;
         background-color: var(--color-accent-soft);
         padding: 1rem 1.25rem;
     }
 
     &__score {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         gap: 0.5rem;
         font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
@@ -59,7 +59,7 @@
     &__score-value {
         font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
-        font-size: clamp(1.25rem, 0.5rem + 5vw, 1.5rem);
+        font-size: abstract.fluid-size(1.25rem, 0.5rem, 5vw, 1.5rem);
     }
 
     &__score-icon {

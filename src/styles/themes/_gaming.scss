@@ -1,3 +1,5 @@
+@use '../abstract' as abstract;
+
 // Games theme.
 
 [data-theme="gaming"] {
@@ -11,84 +13,25 @@
     --color-player-blue: #097FC5;
     --color-player-orange: #EA6900;
     --font-family: 'Orbitron';
-}
 
-// --- Game screen: scoreboard header ---
-// The header background spans the whole topbar (including the exit button),
-// not just the score badges — so it moves from .game__scores to .game__topbar.
-[data-theme="gaming"] .game__topbar {
-    background-color: rgba(#FD96C9, 0.2);
-    border-radius: 10px;
-    padding: 1.5rem;
-}
+    // The header background spans the whole topbar (including the exit
+    // button), not just the score badges.
+    @include abstract.theme-topbar(rgba(#FD96C9, 0.2));
+    @include abstract.theme-score-panel;
 
-[data-theme="gaming"] .game__scores,
-[data-theme="gaming"] .gameover__scores {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 0.5rem 0.75rem;
-    gap: 40px;
-}
-
-[data-theme="gaming"] .game__score,
-[data-theme="gaming"] .gameover__score {
-    gap: 0.5rem;
-
-    &--orange {
-        order: -1;
+    .game__score,
+    .gameover__score {
+        gap: 0.5rem;
     }
-}
 
-[data-theme="gaming"] .game__score-label,
-[data-theme="gaming"] .gameover__score-label {
-    display: none;
-}
-
-// Swap the default flag icon for the player-icon shape.
-[data-theme="gaming"] .game__score-icon:not(.game__score-icon--person),
-[data-theme="gaming"] .gameover__score-icon:not(.gameover__score-icon--person) {
-    display: none;
-}
-
-[data-theme="gaming"] .game__score-icon--person,
-[data-theme="gaming"] .gameover__score-icon--person {
-    display: block;
-    height: 28px;
-    width: 22px;
-}
-
-[data-theme="gaming"] .game__score-value,
-[data-theme="gaming"] .gameover__score-value {
-    font-size: 30px;
+    @include abstract.score-badge-person-icon;
+    @include abstract.current-player-person-icon($radius: 3px);
 }
 
 // --- Game screen: current player badge ---
 [data-theme="gaming"] .game__current-player {
     font-size: 32px;
     gap: 20px;
-}
-
-[data-theme="gaming"] .game__current-player-icon:not(.game__current-player-icon--person) {
-    display: none;
-}
-
-[data-theme="gaming"] .game__current-player-icon--person {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    border-radius: 3px;
-    color: #ffffff;
-
-    &.game__current-player-icon--blue {
-        background-color: var(--color-player-blue);
-    }
-
-    &.game__current-player-icon--orange {
-        background-color: var(--color-player-orange);
-    }
 }
 
 // --- Game screen: exit button ---

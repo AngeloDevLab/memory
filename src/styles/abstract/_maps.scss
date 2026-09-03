@@ -1,0 +1,56 @@
+// Font family -> list of face descriptors consumed by base/_fonts.scss.
+// `file` is the woff/woff2 base path under /fonts (without extension).
+$font-faces: (
+    'Red Rose': (
+        (weight: normal, file: 'red-rose/RedRose-Regular'),
+        (weight: bold, file: 'red-rose/RedRose-Bold'),
+    ),
+    'Almarai': (
+        (weight: bold, file: 'almarai/Almarai-Bold'),
+        (weight: normal, file: 'almarai/Almarai-Regular'),
+    ),
+    'Orbitron': (
+        (weight: 900, file: 'orbitron/Orbitron-Black'),
+        (weight: bold, file: 'orbitron/Orbitron-Bold'),
+    ),
+    'Figtree': (
+        (weight: normal, file: 'figtree/Figtree-Regular'),
+        (weight: 500, file: 'figtree/Figtree-Medium'),
+        (weight: bold, file: 'figtree/Figtree-Bold'),
+        (weight: 800, file: 'figtree/Figtree-ExtraBold'),
+    ),
+    'Klee One': (
+        (weight: normal, file: 'klee-one/KleeOne-Regular'),
+        (weight: 600, file: 'klee-one/KleeOne-SemiBold'),
+    ),
+    'Delius Unicase': (
+        (weight: bold, file: 'delius-unicase/DeliusUnicase-Bold'),
+    ),
+);
+
+// Board size (selected card count) -> memory grid layout config, consumed by
+// pages/_game.scss to generate the .game--16/24/36 modifier classes. Values
+// match what renderBoard() used to set as inline styles in main.ts.
+$board-sizes: (
+    16: (
+        columns: 4,
+        column-track: 1fr,
+        outer-gap: 54px,
+        cell-gap: 1rem,
+        max-width: 500px,
+    ),
+    24: (
+        columns: 6,
+        column-track: minmax(0, 120px),
+        outer-gap: 54px,
+        cell-gap: 6px,
+        max-width: 750px,
+    ),
+    36: (
+        columns: 6,
+        column-track: minmax(0, 120px),
+        outer-gap: 20px,
+        cell-gap: 6px,
+        max-width: 750px,
+    ),
+);

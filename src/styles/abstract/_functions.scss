@@ -1,0 +1,7 @@
+/// Thin, named wrapper around clamp() for fluid type-scale values: a min
+/// size, a preferred size that grows by $vw-amount per viewport width, and a
+/// max size. $vw-base/$vw-amount are interpolated separately (not added as
+/// Sass numbers) since Sass can't add mismatched units like rem + vw.
+@function fluid-size($min, $vw-base, $vw-amount, $max) {
+    @return clamp(#{$min}, #{$vw-base} + #{$vw-amount}, #{$max});
+}

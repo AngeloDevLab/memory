@@ -1,4 +1,5 @@
-@use '../base/mixins';
+@use 'sass:map';
+@use '../abstract' as abstract;
 
 .game {
     display: flex;
@@ -21,17 +22,17 @@
     }
 
     &__scores {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         gap: 1.25rem;
         background-color: var(--color-accent-soft);
         padding: 1rem 1.25rem;
     }
 
     &__score {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
-        font-size: clamp(1.25rem, 0.5rem + 3vw, 1.5rem);
+        font-size: abstract.fluid-size(1.25rem, 0.5rem, 3vw, 1.5rem);
         gap: 0.25rem;
 
         &--blue {
@@ -50,7 +51,7 @@
     &__score-value {
         font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
-        font-size: clamp(1.25rem, 0.5rem + 5vw, 1.5rem);
+        font-size: abstract.fluid-size(1.25rem, 0.5rem, 5vw, 1.5rem);
     }
 
     &__score-icon {
@@ -81,14 +82,14 @@
     }
 
     &__current-player {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         font-family: var(--font-family, 'Red Rose');
-        font-size: clamp(1.25rem, 0.5rem + 3vw, 26px);
+        font-size: abstract.fluid-size(1.25rem, 0.5rem, 3vw, 26px);
         gap: 0.5rem;
     }
 
     &__exit {
-        @include mixins.flex-center;
+        @include abstract.flex-center;
         gap: 0.5rem;
         border: 2px solid var(--color-accent-outline);
         padding: 1rem 1.5rem;
@@ -96,7 +97,7 @@
         color: var(--color-on-surface);
         font-family: var(--font-family, 'Red Rose');
         font-weight: bold;
-        font-size: clamp(1.25rem, 0.5rem + 5vw, 1.5rem);
+        font-size: abstract.fluid-size(1.25rem, 0.5rem, 5vw, 1.5rem);
         cursor: pointer;
         transition: transform 200ms ease-in-out;
     }
@@ -122,6 +123,7 @@
         cursor: pointer;
         padding: 0;
         perspective: 1000px;
+        animation: card-reveal 300ms ease-out backwards;
     }
 
     &__card-highlight {
@@ -162,19 +164,54 @@
         }
 
         &--front {
-            background-color: #E8F3F0;
+            // "it" theme's card-face color; other themes override this selector directly.
+            background-color: var(--color-card-face-front);
             transform: rotateY(180deg);
         }
     }
 
     &__card-icon {
-        width: clamp(30px, 0.5rem + 5vw, 60px);
-        height: clamp(24px, 0.5rem + 5vw, 48px);
+        width: abstract.fluid-size(30px, 0.5rem, 5vw, 60px);
+        height: abstract.fluid-size(24px, 0.5rem, 5vw, 48px);
 
         .game__card-face--front & {
             width: 70%;
             height: 70%;
             object-fit: contain;
         }
+    }
+}
+
+// Board-size modifier classes (applied to .game by game-screen.ts) — replaces
+// the previous inline-style logic in renderBoard() with the same values.
+@each $size, $config in abstract.$board-sizes {
+    .game--#{$size} {
+        gap: map.get($config, outer-gap);
+
+        .game__board {
+            grid-template-columns: repeat(map.get($config, columns), map.get($config, column-track));
+            gap: map.get($config, cell-gap);
+            max-width: map.get($config, max-width);
+        }
+    }
+}
+
+@keyframes card-reveal {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// Staggered reveal delay by board position (index-based, hence @for rather
+// than @each over the board-size map above).
+@for $i from 1 through 36 {
+    .game__board>.game__card:nth-child(#{$i}) {
+        animation-delay: #{$i * 10}ms;
     }
 }
