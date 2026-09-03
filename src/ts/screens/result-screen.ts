@@ -16,6 +16,7 @@ function renderOutcome(scores: Record<Player, number>): void {
     if (isDraw) renderDraw();
     else renderWinner(scores.blue > scores.orange ? 'blue' : 'orange');
     toggleResultGraphics(isDraw);
+    qs('.result', app ?? document)?.classList.toggle('result--draw', isDraw);
 }
 
 /** Renders the "It's a Draw" heading. */
@@ -50,4 +51,5 @@ function toggleResultGraphics(isDraw: boolean): void {
     qs('.result__player-icon', app ?? document)?.toggleAttribute('hidden', isDraw);
     qs('.result__trophy', app ?? document)?.toggleAttribute('hidden', isDraw);
     qs('.result__draw-icon', app ?? document)?.toggleAttribute('hidden', !isDraw);
+    qs('.result__draw-icon-img', app ?? document)?.toggleAttribute('hidden', !isDraw);
 }

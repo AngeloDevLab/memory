@@ -69,6 +69,7 @@
 
     &__player-icon,
     &__draw-icon,
+    &__draw-icon-img,
     &__trophy {
         &[hidden] {
             display: none;
@@ -79,6 +80,9 @@
         width: 200px;
         height: 250px;
         max-width: 40vw;
+        // The path touches the viewBox's left edge exactly; a centered stroke
+        // (added by some themes) would otherwise get clipped there.
+        overflow: visible;
 
         &--blue {
             color: var(--color-player-blue);
@@ -93,6 +97,15 @@
         height: 272px;
         width: auto;
         color: var(--color-accent);
+    }
+
+    // Pre-rendered draw-icon asset for themes whose icon needs a look the
+    // inline currentColor SVG can't produce (e.g. an outline around the
+    // whole silhouette, not per-path). Hidden by default, themes opt in.
+    &__draw-icon-img {
+        display: none;
+        height: 272px;
+        width: auto;
     }
 
     // Themes without a trophy graphic keep the plain player-icon above; hidden by default.

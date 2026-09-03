@@ -31,9 +31,13 @@
 
 [data-theme="food"] .result__label {
     font-family: 'Klee One';
-    font-weight: normal;
+    font-weight: 600;
     font-size: 40px;
     color: #A45212;
+}
+
+[data-theme="food"] .result--draw .result__label {
+    color: #F3832D;
 }
 
 [data-theme="food"] .result__restart {
@@ -56,6 +60,9 @@
 
 [data-theme="food"] .result__draw-icon {
     color: #F3832D;
+    padding: 24px 30px;
+    background-color: #F7E6D5;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 [data-theme="food"] .result__player-icon {

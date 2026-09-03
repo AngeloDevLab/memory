@@ -85,14 +85,24 @@
     border: none;
 }
 
-[data-theme="da"] .result__player-icon,
-[data-theme="da"] .result__draw-icon {
+[data-theme="da"] .result__restart:hover {
+    box-shadow: 3px 3px 5px rgba(47, 46, 46, 0.2);
+}
+
+[data-theme="da"] .result__player-icon {
     stroke: #ffffff;
     stroke-width: 0.5px;
 }
 
+// The multi-path inline draw-icon can't get a clean single silhouette
+// outline via CSS stroke (each <path> gets its own outline instead) — da
+// uses a pre-rendered PNG with the white outline baked in.
 [data-theme="da"] .result__draw-icon {
-    color: #FD5B4F;
+    display: none;
+}
+
+[data-theme="da"] .result__draw-icon-img:not([hidden]) {
+    display: block;
 }
 
 [data-theme="da"] .confirm-dialog {
@@ -149,6 +159,7 @@
 [data-theme="da"] .gameover__final-label {
     font-weight: 500;
     font-size: 40px;
+    color: #ffffff;
 }
 
 [data-theme="da"] .gameover__title {

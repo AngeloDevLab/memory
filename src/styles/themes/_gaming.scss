@@ -131,6 +131,10 @@
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+[data-theme="gaming"] .result__draw-icon {
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
 [data-theme="gaming"] .result__player-icon {
     display: none;
 }
@@ -144,4 +148,12 @@
     border-radius: 10px;
     border-color: var(--color-accent-outline);
     color: var(--color-on-surface);
+}
+
+[data-theme="gaming"] .result__restart:hover {
+    transform: none;
+    background-color: rgba(237, 27, 118, 0.14);
+    box-shadow:
+        inset 0 0 0 1px #E71C4F,
+        3px 3px 5px rgba(47, 46, 46, 0.2);
 }
