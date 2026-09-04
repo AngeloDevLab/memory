@@ -7,7 +7,9 @@
     align-items: center;
     gap: 3rem;
     width: 100%;
+    max-width: abstract.$content-max-width;
     min-height: 100dvh;
+    margin: 0 auto;
     background-color: var(--color-surface);
     color: var(--color-on-surface);
     padding: 1.5rem;

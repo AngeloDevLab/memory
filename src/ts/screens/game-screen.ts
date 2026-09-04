@@ -1,6 +1,6 @@
 import type { CardState } from '../config';
 import { themesWithCardBack } from '../config';
-import { app, qs, qsa } from '../dom';
+import { app, queryOne, queryAll } from '../dom';
 import { Game } from '../game';
 import { currentGame, selectedSettings, setCurrentGame } from '../state';
 import { applyThemeCopy } from '../theme-copy';
@@ -39,8 +39,8 @@ export function handleCardClick(index: number): void {
 
 /** Rebuilds the board's card elements for the active game, sized via its board--N class. */
 function renderBoard(): void {
-    const board = qs<HTMLElement>('.game__board', app ?? document);
-    const gameEl = qs<HTMLElement>('.game', app ?? document);
+    const board = queryOne<HTMLElement>('.game__board', app ?? document);
+    const gameEl = queryOne<HTMLElement>('.game', app ?? document);
     if (!currentGame || !board || !gameEl) return;
 
     gameEl.classList.add(`game--${currentGame.boardSize}`);
@@ -61,7 +61,7 @@ function createCardElement(card: CardState, index: number): Node {
 /** Sets the index, front image and (theme-dependent) back image on a cloned card button. */
 function applyCardContent(button: HTMLButtonElement, card: CardState, index: number): void {
     button.dataset.index = String(index);
-    const [backIcon, frontIcon] = qsa<HTMLImageElement>('.game__card-icon', button);
+    const [backIcon, frontIcon] = queryAll<HTMLImageElement>('.game__card-icon', button);
     frontIcon.src = card.image;
 
     if (currentGame && themesWithCardBack.has(currentGame.theme)) {
@@ -74,7 +74,7 @@ function applyCardContent(button: HTMLButtonElement, card: CardState, index: num
 /** Reflects one card's revealed/matched flags onto its button element. */
 function updateCardElement(index: number): void {
     const card = currentGame?.cards[index];
-    const button = qs<HTMLButtonElement>(`.game__card[data-index="${index}"]`, app ?? document);
+    const button = queryOne<HTMLButtonElement>(`.game__card[data-index="${index}"]`, app ?? document);
     if (!card || !button) return;
 
     button.classList.toggle('game__card--revealed', card.revealed || card.matched);
@@ -88,15 +88,15 @@ function updateResolvedPair(): void {
 
 /** Renders both players' current score values. */
 function renderScores(): void {
-    const blueValue = qs('.game__score--blue .game__score-value', app ?? document);
-    const orangeValue = qs('.game__score--orange .game__score-value', app ?? document);
+    const blueValue = queryOne('.game__score--blue .game__score-value', app ?? document);
+    const orangeValue = queryOne('.game__score--orange .game__score-value', app ?? document);
     if (blueValue) blueValue.textContent = String(currentGame?.scores.blue ?? 0);
     if (orangeValue) orangeValue.textContent = String(currentGame?.scores.orange ?? 0);
 }
 
 /** Highlights the current player's icon color. */
 function renderCurrentPlayer(): void {
-    qsa('.game__current-player-icon', app ?? document).forEach((icon) => {
+    queryAll('.game__current-player-icon', app ?? document).forEach((icon) => {
         icon.classList.remove('game__current-player-icon--blue', 'game__current-player-icon--orange');
         icon.classList.add(`game__current-player-icon--${currentGame?.currentPlayer}`);
     });

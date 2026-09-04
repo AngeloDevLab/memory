@@ -4,8 +4,8 @@ export type FlipResult = 'flipped' | 'matched' | 'mismatched' | 'locked' | 'alre
 
 /** Builds the asset path for one pair's card image within a theme. */
 function cardImagePath(theme: ThemeId, pairIndex: number): string {
-    const num = String(pairIndex + 1).padStart(2, '0');
-    return `/assets/themes/${theme}/cards/card-${num}.png`;
+    const paddedNumber = String(pairIndex + 1).padStart(2, '0');
+    return `/assets/themes/${theme}/cards/card-${paddedNumber}.png`;
 }
 
 /** Builds a shuffled deck of face-down card pairs for the given theme/board size. */
@@ -28,11 +28,7 @@ function shuffle<T>(items: T[]): T[] {
     return items;
 }
 
-/**
- * One round's rules: the card deck, scores, whose turn it is, and the
- * flip/match/mismatch state machine. Has no DOM or timing concerns — callers
- * own rendering and the mismatch-reveal delay.
- */
+/** One round's rules: card deck, scores, turn order, and the flip/match/mismatch state machine. */
 export class Game {
     readonly theme: ThemeId;
     readonly boardSize: BoardSize;

@@ -17,10 +17,14 @@
     &[open] {
         @include abstract.flex-center;
         flex-direction: column;
+        // Themes override just the animation-name below; fly-in-top is the
+        // "it" theme's look and also the fallback for an unset data-theme.
+        animation: confirm-dialog-fly-in-top 0.3s ease-out;
     }
 
     &::backdrop {
         background-color: rgba(0, 0, 0, 0.5);
+        animation: confirm-dialog-backdrop-fade-in 0.3s ease-out;
     }
 
     &__text {
@@ -34,5 +38,51 @@
     &__actions {
         display: flex;
         gap: 24px;
+    }
+}
+
+@keyframes confirm-dialog-fly-in-top {
+    from {
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes confirm-dialog-fly-in-bottom {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes confirm-dialog-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes confirm-dialog-backdrop-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

@@ -110,6 +110,10 @@
     border-radius: 20px;
 }
 
+[data-theme="da"] .confirm-dialog[open] {
+    animation-name: confirm-dialog-fade-in;
+}
+
 [data-theme="da"] .confirm-dialog__text {
     font-weight: bold;
     font-size: 28px;

@@ -33,6 +33,10 @@
     display: block;
 }
 
+[data-theme="it"] .confirm-dialog[open] {
+    animation-name: confirm-dialog-fly-in-top;
+}
+
 [data-theme="it"] .confirm-dialog .button--primary:hover {
     transform: none;
     box-shadow: inset 0 0 0 3px #3ABCA4;

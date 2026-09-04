@@ -56,6 +56,13 @@
 // --- Game screen: memory cards ---
 [data-theme="gaming"] .game__card {
     border-radius: 12px;
+}
+
+// The shadow lives on the rotating inner element (not the static outer
+// button), so it foreshortens with the actual 3D flip instead of sitting
+// there unchanged while the card turns.
+[data-theme="gaming"] .game__card-inner {
+    border-radius: 12px;
     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.25);
 }
 
@@ -76,6 +83,10 @@
     &__text {
         font-size: 28px;
     }
+}
+
+[data-theme="gaming"] .confirm-dialog[open] {
+    animation-name: confirm-dialog-fly-in-bottom;
 }
 
 [data-theme="gaming"] .confirm-dialog .button {

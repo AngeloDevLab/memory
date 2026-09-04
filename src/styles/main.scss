@@ -5,9 +5,9 @@
 @use './components';
 
 body {
-    height: 100vh; //fallback
+    height: 100vh;
     height: 100dvh;
-    background-color: abstract.$primary;
+    background-color: var(--color-surface, #{abstract.$primary});
     color: #ffffff;
     position: relative;
 }
@@ -23,7 +23,7 @@ main {
     overflow: hidden;
     width: 100%;
     min-height: 100dvh;
-    background-color: abstract.$primary;
+    background-color: var(--color-surface, #{abstract.$primary});
 
     &.is-light {
         background-color: abstract.$white;

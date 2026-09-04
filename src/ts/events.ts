@@ -1,4 +1,4 @@
-import { app, qs } from './dom';
+import { app, queryOne } from './dom';
 import { handleCardClick, startGame } from './screens/game-screen';
 import { showScreen } from './screens/router';
 import {
@@ -69,7 +69,7 @@ function onStartClick(): void {
 }
 
 function onExitClick(): void {
-    qs<HTMLDialogElement>('.confirm-dialog', app ?? document)?.showModal();
+    queryOne<HTMLDialogElement>('.confirm-dialog', app ?? document)?.showModal();
 }
 
 function onDialogAction(matched: Element): void {

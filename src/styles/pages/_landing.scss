@@ -5,7 +5,10 @@
     flex-direction: column;
     gap: 85px;
     width: 100%;
+    max-width: abstract.$content-max-width;
     min-height: 100dvh;
+    margin: 0 auto;
+    position: relative;
     background-color: abstract.$primary;
 
     &__title {

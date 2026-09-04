@@ -8,7 +8,7 @@
 }
 
 /// Wraps @content in a min-width media query for a named breakpoint from $breakpoints.
-@mixin mq($breakpoint) {
+@mixin media-query($breakpoint) {
     @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
         @content;
     }
@@ -73,19 +73,19 @@
 }
 
 /// Shared themed topbar panel; only the background color varies per theme.
-@mixin theme-topbar($bg) {
+@mixin theme-topbar($background-color) {
     .game__topbar {
-        background-color: $bg;
+        background-color: $background-color;
         border-radius: 10px;
         padding: 1.5rem;
     }
 }
 
 /// Shared themed score-panel chrome behind the score badges.
-@mixin theme-score-panel($bg: #ffffff) {
+@mixin theme-score-panel($background-color: #ffffff) {
     .game__scores,
     .gameover__scores {
-        background-color: $bg;
+        background-color: $background-color;
         border-radius: 10px;
         padding: 0.5rem 0.75rem;
         gap: 40px;

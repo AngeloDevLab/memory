@@ -28,10 +28,7 @@ export const settingsGroups = ['theme', 'player', 'board-size'] as const;
 /** Themes without their own card-back.png show the CSS gradient only, no icon. */
 export const themesWithCardBack = new Set<ThemeId>(['it', 'da', 'food']);
 
-/**
- * Per-theme copy for the exit dialog and restart button. Themes missing here
- * (currently "it") fall back to the defaults in applyThemeCopy().
- */
+/** Per-theme copy for the exit dialog and restart button; missing themes fall back to applyThemeCopy()'s defaults. */
 export const themeCopy: Partial<Record<ThemeId, ThemeCopyEntry>> = {
     gaming: {
         dialogCancel: 'No, back to game',

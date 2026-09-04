@@ -4,7 +4,11 @@ $white: #ffffff;
 $player-blue: #2BB1FF;
 $player-orange: #F58E39;
 
-// Named breakpoints for the mq() mixin. Only "tablet" exists today (the
+// Max width for full-screen content (landing/game/gameover/result/settings),
+// keeping layouts from stretching edge-to-edge on wide/4K monitors.
+$content-max-width: 1440px;
+
+// Named breakpoints for the media-query() mixin. Only "tablet" exists today (the
 // settings screen's two-column layout at >= 900px).
 $breakpoints: (
     tablet: 900px,

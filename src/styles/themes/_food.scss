@@ -144,6 +144,10 @@
     border-radius: 20px;
 }
 
+[data-theme="food"] .confirm-dialog[open] {
+    animation-name: confirm-dialog-fly-in-bottom;
+}
+
 [data-theme="food"] .confirm-dialog__text {
     font-family: 'Klee One';
     font-weight: 600;
